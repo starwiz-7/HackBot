@@ -47,12 +47,15 @@ class Hackathons(commands.Cog):
     async def no_channel(self,ctx,channel):
         raise HackathonCogsError("The selected channel is not available.")
 
-
+    @commands.guild_only()
+    @commands.has_permissions(manage_channels=True,read_messages=True,send_messages=True)
     @commands.command(brief="Hack a channel for further hackathon updates")
     async def channel(self,ctx, *channel):
         await self.validate_channel(ctx,channel)
         await ctx.send("Ruko zara")
 
+    @commands.guild_only()
+    @commands.has_permissions(manage_channels=True,read_messages=True,send_messages=True)
     @commands.command(brief="Unsubscribe the channel for further hackathon updates")
     async def unsub(self,ctx):
         delete_guild(ctx.guild_id)
@@ -74,6 +77,7 @@ class Hackathons(commands.Cog):
         return sliced_list
 
     #Sending the embeds to all the guilds
+    @commands.has_permissions(send_messages=True)
     def send_notif(self,msg):
         servers = get_guilds()
         for i in servers:
@@ -82,6 +86,7 @@ class Hackathons(commands.Cog):
                 channel.send(embed=msg)
             except:
                 continue
+    
 
     #Embedding multiple hackathon in one embed
     def multiple_embed(self,hackathons):

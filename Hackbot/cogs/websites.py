@@ -22,7 +22,9 @@ class Source(commands.Cog):
                 k = 1
                 l = []
         return sliced_list
-        
+
+    @commands.guild_only()
+    @commands.has_permissions(read_messages=True,send_messages=True)  
     @commands.command(brief="Fetch hackathons from source")
     async def web(self,ctx, *string):
         if len(string) == 0:
@@ -42,7 +44,7 @@ class Source(commands.Cog):
                     # print(i[0])
                     for j in i:
                         # print(j)
-                        msg.add_field(name=j['name'],value=j['url'])
+                        msg.add_field(name=j['name'],value=j['url'],inline=False)
                     await ctx.send(embed=msg)
 
 

@@ -4,6 +4,7 @@ import logging
 from pathlib import Path
 import discord
 from discord.ext import commands
+from discord.utils import find
 from utils.db import new_hackathon
 
 def main():
@@ -24,6 +25,19 @@ def main():
         return True
     
     bot.add_check(no_dm_check)
+    @bot.event
+    async def on_ready():
+        await bot.change_presence(
+        activity=discord.Activity(
+            type=discord.ActivityType.playing,
+            name='with Hackathons' )
+    )
+    @bot.event
+    async def on_guild_join(guild):
+        for channel in guild.text_channels:
+            if channel.permissions_for(guild.me).send_messages:
+                await channel.send("```Hello guyss! HackBot is here to notify you all about the upcoming hackathons\nCommand Prefix: !hack\nFor help in commands type: !hack help```")
+                break
     bot.run(token)
 
 if __name__ == '__main__':
