@@ -1,4 +1,4 @@
-# HackBot
+# HackBot 🔥
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
 <!-- ![GitHub repo size](https://img.shields.io/github/repo-size/scottydocs/README-template.md)
@@ -10,6 +10,7 @@
 HackBot is a `Discord Bot` that notifies `hackers, developers` about `upcoming hackathons`.
 
 The bot uses the scraped data from MLH, Devfolio, Devpost and HackerEarth to notify users about new hackathon as soon as it is listed on the website. Users can also see all the hackathons listed on site in discord itself.
+(Support for other websites to be added soon)
 
 ## Prerequisites
 
@@ -78,8 +79,6 @@ Alternatively see the GitHub documentation on [creating a pull request](https://
 
 -   [@starwiz-7](https://github.com/starwiz-7) 📖
 
-You might want to consider using something like the [All Contributors](https://github.com/all-contributors/all-contributors) specification and its [emoji key](https://allcontributors.org/docs/en/emoji-key).
-
 ## Contact
 
 If you want to contact me you can reach me at aryan2019@iiitkottayam.ac.in
@@ -88,4 +87,4 @@ If you want to contact me you can reach me at aryan2019@iiitkottayam.ac.in
 
 <!--- If you're not sure which open license to use see https://choosealicense.com/--->
 
-This project uses the following license: [MIT](link).
+This project uses the following license: [MIT](https://github.com/starwiz-7/HackBot/blob/main/LICENSE).
