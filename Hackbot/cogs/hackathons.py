@@ -52,7 +52,6 @@ class Hackathons(commands.Cog):
     @commands.command(brief="Hack a channel for further hackathon updates")
     async def channel(self,ctx, *channel):
         await self.validate_channel(ctx,channel)
-        await ctx.send("Ruko zara")
 
     @commands.guild_only()
     @commands.has_permissions(manage_channels=True,read_messages=True,send_messages=True)
