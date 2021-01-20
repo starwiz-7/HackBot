@@ -7,7 +7,7 @@ import logging
 import sys
 sys.path.append('..')
 client = MongoClient(
-    "mongodb+srv://Admin:HackBotAdmin@hackbot.g1uz8.mongodb.net/HackBot?retryWrites=true&w=majority"
+    "mongodb+srv://Admin:AdminHackBot@hackbot.g1uz8.mongodb.net/HackBot?retryWrites=true&w=majority"
 )
 bot_db = client.get_database("HackBot")
 guilds = bot_db.get_collection("Guild-channels")

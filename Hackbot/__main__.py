@@ -6,7 +6,6 @@ import discord
 from discord.ext import commands
 from discord.utils import find
 from utils.db import new_hackathon
-
 def main():
     token = "Nzk2NzI0MTkxNzUxNTY5NDc5.X_cFOQ.NYuv81J8cYlPBLic9L4d5UkyjSo"
     if not token:

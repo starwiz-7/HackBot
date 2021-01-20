@@ -78,46 +78,48 @@ class Hackathons(commands.Cog):
 
     #Sending the embeds to all the guilds
     @commands.has_permissions(send_messages=True)
-    def send_notif(self,msg):
+    async def send_notif(self,msg):
         servers = get_guilds()
         for i in servers:
             try:
                 channel = self.bot.get_channel(i['channel'])
-                channel.send(embed=msg)
+                await channel.send(embed=msg)
             except:
                 continue
     
 
     #Embedding multiple hackathon in one embed
-    def multiple_embed(self,hackathons):
+    async def multiple_embed(self,hackathons):
         website = hackathons[0]['website']
         hacks = self.parse_hackathons(hackathons)
         asset = get_asset(website)
         for i in hacks:
             msg = discord.Embed(title="New Hackathons")
-            msg.set_thumbnail(url=asset[0]['url'])
+            msg.set_thumbnail(url=asset[0]['thumbnail'])
             for j in i:
                 msg.add_field(name=j['name'], value=j['url'])
-            self.send_notif(msg)
+            await self.send_notif(msg)
 
     #Single hackathon embedding
-    def single_embed(self, hackathons):
+    async def single_embed(self, hackathons):
         msg = discord.Embed(title="New Hackathon")
+        hackathons = hackathons[0]
         asset = get_asset(hackathons['website'])
-        msg.set_thumbnail(url = asset[0]['url'])
+        msg.set_thumbnail(url = asset[0]['thumbnail'])
         msg.add_field(name=hackathons['name'], value=hackathons['url'])
-        msg.add_field(name="Start Date",value=hackathons['start_date'], inlines=True)
-        msg.add_field(name="End Date",value=hackathons['end_date'], inlines=True)
-        msg.add_field(name="Mode", value=hackathons['mode'], inlines=True)
-        msg.add_field(name="Location", value=hackathons['location'], inlines=True)
-        return msg
+        msg.add_field(name="Start Date",value=hackathons['start'], inline=True)
+        msg.add_field(name="End Date",value=hackathons['end'], inline=True)
+        msg.add_field(name="Mode", value=hackathons['mode'], inline=True)
+        msg.add_field(name="Location", value=hackathons['location'], inline=True)
+        await self.send_notif(msg)
+        # return msg
         
     #Check the length of hackathons ordered by website
-    def check_list(self,hackathon):
+    async def check_list(self,hackathon):
         if len(hackathon) > 1:
-            self.multiple_embed(hackathon)
+            await self.multiple_embed(hackathon)
         elif len(hackathon) == 1:
-            self.single_embed(hackathon)
+            await self.single_embed(hackathon)
 
     #Check after 1 minute if a new hackathon is added
     @tasks.loop(seconds=60.0)
@@ -132,11 +134,11 @@ class Hackathons(commands.Cog):
                 if i['name'] == k:
                     web_list.append(i)
                 else:
-                    self.check_list(web_list)
+                    await self.check_list(web_list)
                     k = i['website']
                     web_list = []
                     web_list.append(i)
-            self.check_list(web_list)
+            await self.check_list(web_list)
 
     @check_if_new.before_loop
     async def before_print(self):
