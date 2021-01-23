@@ -51,6 +51,31 @@ To use HackBot, follow these steps:
 python bot.py
 ```
 
+## HackBot Commands
+
+```
+;hack notify <channel_name>
+Assign a channel for upcoming hackathons notification
+```
+```
+;hack web <website_name>
+Fetch all hackathons listed on website.
+```
+Supported websites:
+- MLH
+- Devfolio
+- Devpost
+
+```
+;hack unsub
+Unsubscribe for upcoming hackathon notifications.
+```
+```
+;hack issue "Feature/Issue title" "Feature/Issue description"
+Report any issue or request any feature
+```
+
+
 ## Roadmap
 
 -   Deploying the Discord Bot on Heroku
