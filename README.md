@@ -48,7 +48,7 @@ To use HackBot, follow these steps:
 -   Run the following command
 
 ```
-python __main__.py
+python bot.py
 ```
 
 ## Roadmap

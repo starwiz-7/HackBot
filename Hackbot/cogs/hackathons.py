@@ -14,10 +14,8 @@ class Hackathons(commands.Cog):
 
     def get_channel_id(self,ctx,channel):
         channels = ctx.guild.text_channels
-        print(channel)
         for i in channels:
             if i.name == channel:
-                print(i.id)
                 return i.id
         return False
 
@@ -29,13 +27,14 @@ class Hackathons(commands.Cog):
             update_channel(ctx.guild.id, channel_id)
         
     async def create_channel(self,ctx,channel):
-        await ctx.send("`Creating channel "+channel+"`")
+        message = await ctx.send("```Creating channel "+channel+"```")
         await ctx.guild.create_text_channel(channel)
         channel_id = self.get_channel_id(ctx,channel)
+        newcontent = "```Channel "+channel+" created and hacked for notifications.```"
+        await message.edit(content=newcontent)
 
     async def validate_channel(self,ctx, channel):
         channel = channel[0]
-        print(channel)
         channel_id = self.get_channel_id(ctx,channel)
         if channel_id != False:
             self.save_channel_details(ctx,channel_id)
@@ -49,13 +48,13 @@ class Hackathons(commands.Cog):
 
     @commands.guild_only()
     @commands.has_permissions(manage_channels=True,read_messages=True,send_messages=True)
-    @commands.command(brief="Hack a channel for further hackathon updates")
-    async def channel(self,ctx, *channel):
+    @commands.command(brief="Hack a channel for upcoming hackathon notifications.")
+    async def notify(self,ctx, *channel):
         await self.validate_channel(ctx,channel)
 
     @commands.guild_only()
     @commands.has_permissions(manage_channels=True,read_messages=True,send_messages=True)
-    @commands.command(brief="Unsubscribe the channel for further hackathon updates")
+    @commands.command(brief="Unsubscribe the channel.")
     async def unsub(self,ctx):
         delete_guild(ctx.guild_id)
         await ctx.send("Unsubscribed")
@@ -121,16 +120,17 @@ class Hackathons(commands.Cog):
             await self.single_embed(hackathon)
 
     #Check after 1 minute if a new hackathon is added
-    @tasks.loop(seconds=60.0)
+    @tasks.loop(seconds=1860.0)
     async def check_if_new(self):
         hackathon = new_hackathon()
-        print(hackathon)
+        print("Running....")
         if len(hackathon) != 0:
             hackathon = sorted(hackathon, key=lambda x: x['website'])
             web_list = []
             k = hackathon[0]['website']
             for i in hackathon:
-                if i['name'] == k:
+                update_hackathon(i['name'], i['website'])
+                if i['website'] == k:
                     web_list.append(i)
                 else:
                     await self.check_list(web_list)
@@ -141,7 +141,6 @@ class Hackathons(commands.Cog):
 
     @check_if_new.before_loop
     async def before_print(self):
-        print("waiting..")
         await self.bot.wait_until_ready()
     
 

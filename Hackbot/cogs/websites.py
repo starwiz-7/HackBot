@@ -6,7 +6,7 @@ class SourceCogError(commands.CommandError):
     pass
 
 class Source(commands.Cog):
-    def __inti__(self,bot):
+    def __init__(self,bot):
         self.bot = bot
 
     def parse_hackathons(self,hackathons):
@@ -17,7 +17,6 @@ class Source(commands.Cog):
             l.append(i)
             k+=1
             if(k %5 == 0):
-                # print(l)
                 yield l
                 k = 1
                 l = []
@@ -34,18 +33,15 @@ class Source(commands.Cog):
             hackathons = get_hackathon(website)
             print(hackathons)
             if len(hackathons[0])>0:
-                hackathons = list(self.parse_hackathons(hackathons))
+                hackathon = list(self.parse_hackathons(hackathons))
                 asset = get_asset(website)
-                for i in hackathons:
-                    
+                for i in hackathon:
+                    print(i)
                     msg = discord.Embed(title=f'Hackathons listed on {website}')
-                    # print(asset)
                     msg.set_thumbnail(url=asset[0]['thumbnail'])
-                    # print(i[0])
                     for j in i:
-                        # print(j)
-                        msg.add_field(name=j['name'],value=j['url'],inline=False)
-                    await ctx.send(embed=msg)
+                        await msg.add_field(name=j['name'],value=j['url'],inline=False)
+                    
 
 
 def setup(bot):

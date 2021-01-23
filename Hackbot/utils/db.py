@@ -1,14 +1,9 @@
 from datetime import datetime
 from pymongo import MongoClient
-from mongotriggers import MongoTrigger
 import pymongo
-import asyncio
-import logging
-import sys
-sys.path.append('..')
-client = MongoClient(
-    "mongodb+srv://Admin:AdminHackBot@hackbot.g1uz8.mongodb.net/HackBot?retryWrites=true&w=majority"
-)
+import os
+MONGO_URI = os.environ.get('MONGO_URI')
+client = MongoClient(MONGO_URI)
 bot_db = client.get_database("HackBot")
 guilds = bot_db.get_collection("Guild-channels")
 hackathons = bot_db.get_collection("Hackathons")

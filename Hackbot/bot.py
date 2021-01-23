@@ -7,12 +7,12 @@ from discord.ext import commands
 from discord.utils import find
 from utils.db import new_hackathon
 def main():
-    token = "Nzk2NzI0MTkxNzUxNTY5NDc5.X_cFOQ.NYuv81J8cYlPBLic9L4d5UkyjSo"
-    if not token:
+    DISCORD_TOKEN = os.environ.get('DISCORD_TOKEN')
+    if not DISCORD_TOKEN:
         logging.error('Token missing')
         return
 
-    bot = commands.Bot(command_prefix=commands.when_mentioned_or('!hack '), case_sensitive=False)
+    bot = commands.Bot(command_prefix=commands.when_mentioned_or(';hack '), case_sensitive=False)
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             bot.load_extension(f'cogs.{filename[:-3]}')
@@ -37,7 +37,12 @@ def main():
             if channel.permissions_for(guild.me).send_messages:
                 await channel.send("```Hello guyss! HackBot is here to notify you all about the upcoming hackathons\nCommand Prefix: !hack\nFor help in commands type: !hack help```")
                 break
-    bot.run(token)
+
+    @bot.event
+    async def on_command_error(ctx,error):
+        if isinstance(error, commands.CommandNotFound):
+            await ctx.send("Please type `;hack help` for list of commands")
+    bot.run(DISCORD_TOKEN)
 
 if __name__ == '__main__':
     main()
