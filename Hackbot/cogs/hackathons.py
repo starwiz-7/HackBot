@@ -57,7 +57,7 @@ class Hackathons(commands.Cog):
     @commands.command(brief="Unsubscribe the channel.")
     async def unsub(self,ctx):
         delete_guild(ctx.guild_id)
-        await ctx.send("Unsubscribed")
+        await ctx.send("Unsubscribed") 
 
 
     #Embedding max of 4 hackathons
@@ -95,7 +95,7 @@ class Hackathons(commands.Cog):
             msg = discord.Embed(title="New Hackathons")
             msg.set_thumbnail(url=asset[0]['thumbnail'])
             for j in i:
-                msg.add_field(name=j['name'], value=j['url'])
+                msg.add_field(name=j['name'], value=j['url'],inline=False)
             await self.send_notif(msg)
 
     #Single hackathon embedding
@@ -105,10 +105,10 @@ class Hackathons(commands.Cog):
         asset = get_asset(hackathons['website'])
         msg.set_thumbnail(url = asset[0]['thumbnail'])
         msg.add_field(name=hackathons['name'], value=hackathons['url'])
-        msg.add_field(name="Start Date",value=hackathons['start'], inline=True)
-        msg.add_field(name="End Date",value=hackathons['end'], inline=True)
-        msg.add_field(name="Mode", value=hackathons['mode'], inline=True)
-        msg.add_field(name="Location", value=hackathons['location'], inline=True)
+        msg.add_field(name="Start Date",value=hackathons['start'], inline=False)
+        msg.add_field(name="End Date",value=hackathons['end'], inline=False)
+        msg.add_field(name="Mode", value=hackathons['mode'], inline=False)
+        msg.add_field(name="Location", value=hackathons['location'], inline=False)
         await self.send_notif(msg)
         # return msg
         
