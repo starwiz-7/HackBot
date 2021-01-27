@@ -40,8 +40,8 @@ class Source(commands.Cog):
                     msg = discord.Embed(title=f'Hackathons listed on {website}')
                     msg.set_thumbnail(url=asset[0]['thumbnail'])
                     for j in i:
-                        await msg.add_field(name=j['name'],value=j['url'],inline=False)
-                    
+                        msg.add_field(name=j['name'],value=j['url'],inline=False)
+                    await ctx.send(embed=msg)
 
 
 def setup(bot):

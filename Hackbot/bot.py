@@ -28,8 +28,8 @@ def main():
     async def on_ready():
         await bot.change_presence(
         activity=discord.Activity(
-            type=discord.ActivityType.playing,
-            name='with Hackathons' )
+            type=discord.ActivityType.watching,
+            name='Netflix' )
     )
     @bot.event
     async def on_guild_join(guild):

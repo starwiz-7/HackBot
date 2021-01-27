@@ -56,7 +56,7 @@ class Hackathons(commands.Cog):
     @commands.has_permissions(manage_channels=True,read_messages=True,send_messages=True)
     @commands.command(brief="Unsubscribe the channel.")
     async def unsub(self,ctx):
-        delete_guild(ctx.guild_id)
+        delete_guild(ctx.guild.id)
         await ctx.send("Unsubscribed") 
 
 
