@@ -11,6 +11,7 @@ class Hackathons(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
         self.check_if_new.start()
+        self.server_count.start()
 
     def get_channel_id(self,ctx,channel):
         channels = ctx.guild.text_channels
@@ -138,12 +139,16 @@ class Hackathons(commands.Cog):
                     web_list = []
                     web_list.append(i)
             await self.check_list(web_list)
+    
+    @tasks.loop(seconds=60.0)
+    async def server_count(self):
+        print(len(self.bot.guilds))
 
     @check_if_new.before_loop
+    @server_count.before_loop
     async def before_print(self):
         await self.bot.wait_until_ready()
     
-
 
 def setup(bot):
     bot.add_cog(Hackathons(bot))
