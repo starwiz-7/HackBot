@@ -12,7 +12,7 @@ HackBot is a `Discord Bot` that notifies `hackers, developers` about `upcoming h
 The bot uses the scraped data from MLH, Devfolio, Devpost and HackerEarth to notify users about new hackathon as soon as it is listed on the website. Users can also see all the hackathons listed on site in discord itself.
 (Support for other websites to be added soon)
 
-### HackBot currently serves 30+ discord servers with 10000+ members!
+### HackBot currently serves 50+ discord servers with 10000+ members!
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
